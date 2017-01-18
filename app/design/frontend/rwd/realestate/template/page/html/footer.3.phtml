@@ -1,0 +1,222 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<!--<div class="footer-container">
+    <div class="footer">
+        <?php echo $this->getChildHtml() ?>
+        <address class="copyright"><?php echo $this->getCopyright() ?></address>
+    </div>
+</div>-->
+
+<section id="footer-upper">
+<div class="container">
+<div class="row">
+   <div class="col-md-4">
+     <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-footer-about-us')->toHtml();?>
+   </div> 	
+   <div class="col-md-8">
+     <div class="f-upper-wrap">
+      <div class="col-sm-4">
+         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-footer-policy')->toHtml();?>
+      </div>
+      <div class="col-sm-4">
+       <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-footer-contact-details')->toHtml();?>
+      </div>
+      <div class="col-sm-4">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-footer-accounts')->toHtml();?>
+      </div>
+     </div>
+     <div class="clearfix"></div>
+     <div class="news-letter"><?php echo $this->getChildHtml('newsletter'); ?></div> 
+   </div> 
+</div>
+</div>
+</section>
+
+<section id="follow-us">
+<div class="container">
+<div class="row">
+   <div class="col-md-6">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-footer-social-links')->toHtml();?>
+   </div>
+   <div class="col-md-6">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top-footer-payment-icons')->toHtml();?>
+   </div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="row">
+<div class="footer-boxes">
+  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-categories')->toHtml();?>
+</div>
+</div>
+</div>
+</footer>
+
+<section id="copy">
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+      <address class="copyright"><?php echo $this->getCopyright() ?></address>
+  </div>
+<!--<div class="col-md-6">
+      <div class="chat-box pull-right"><img src="images/chat-box.png" alt=""/></div>
+  </div>-->
+</div>
+</div>
+
+<?php if( Mage::getSingleton('core/session')->getVisit() == 0 ){ ?>
+<button class="btn footer-btn" style="display:none" title="<?php echo $this->__('View Popup') ?>" onclick="showLocation('<?php echo $this->getBaseurl() ?>country-city-postcode')" onblur='closePopup()' type="button">VIEW POPUP</button>
+<?php } ?>
+
+<?php if( Mage::getSingleton('core/session')->getVisit() == 1 ){ ?>
+<button class="btn footer-btn" style="display:none" title="<?php echo $this->__('View Popup') ?>" onclick="closePopup()" type="button">CLOSE POPUP</button>
+<?php } ?>
+
+</section>
+
+<script src="<?php echo $this->getSkinUrl(); ?>js/vendor/bootstrap.min.js"></script>
+<?php $routeName = Mage::app()->getRequest()->getRouteName(); 
+ $identifier = Mage::getSingleton('cms/page')->getIdentifier();
+ if($routeName == 'cms' && $identifier == 'home') { ?>
+
+<script src="<?php echo $this->getJsUrl(); ?>prototype/window.js"></script>
+<script type="text/javascript">// <![CDATA[
+function showLocation(url) {
+    winCompare = new Window({id:'popup_win',className:'magento',title:'Enter The Following:',url:url,opacity:1,
+width:800,height:400,minimizable:false,maximizable:false,showEffectOptions:{duration:0.4},hideEffectOptions:{duration:0.4},
+closable:true,destroyOnClose:true,recenterAuto:false});
+    winCompare.setZIndex(100);
+    winCompare.showCenter(true);
+    winCompare.setCloseCallback('closePopup');
+}
+function closePopup() {
+    Windows.close('popup_win');
+}
+// ]]></script>
+
+<?php if( Mage::getSingleton('core/session')->getVisit() == 0 ){ ?>
+<script>
+$j(window).load(function(){
+   $j('.footer-btn').trigger('click');
+   $j('#popup_win .title_window').css('background-color','#ECECEC');
+   $j('#popup_win .title_window').css('font-weight','700');
+   $j('#popup_win .magento_close').text('X');
+   $j('#popup_win .magento_close').css('color','#000000');
+   $j('#popup_win .magento_close').css('cursor','pointer');
+   $j('#popup_win .magento_close').css('position','absolute');
+   $j('#popup_win .magento_close').css('font-weight','bold');
+   $j('#popup_win .magento_close').css('margin-left','780px');
+   $j('#popup_win .magento_close').css('width','28px');	
+   $j('#popup_win').find('#popup_win_content').load(function(){
+	$j(this).contents().find('.top-section').css('display','none');
+ 	$j(this).contents().find('.top-middle').css('display','none');
+	$j(this).contents().find('.menu-part').css('display','none');
+	$j(this).contents().find('.breadcrumbs').css('display','none');
+	$j(this).contents().find('.main-container').css('padding','0');
+	$j(this).contents().find('#secure-pay').css('display','none');
+	$j(this).contents().find('#footer-upper').css('display','none');
+	$j(this).contents().find('#follow-us').css('display','none');
+	$j(this).contents().find('footer').css('display','none');
+	$j(this).contents().find('#copy').css('display','none');
+   });
+});
+</script>
+<?php } ?>
+<?php if( Mage::getSingleton('core/session')->getVisit() == 1 ){ ?>
+<?php if(Mage::getSingleton('core/session')->getRefreshCount() == 0){ 
+       Mage::getSingleton('core/session')->setRefreshCount(1);  ?>
+<script>
+$j(window).load(function(){ 
+  //alert('inside visit - 1');
+  //$j(this).find('#popup_win').load(function(){
+  //  alert('inside load -1');
+  //});
+});
+</script>
+<?php } ?>
+<?php //Mage::getSingleton('core/session')->unsCountry();
+      //Mage::getSingleton('core/session')->unsState();
+      //Mage::getSingleton('core/session')->unsPostcode(); 
+      //Mage::getSingleton('core/session')->unsVisit(); 
+      //Mage::getSingleton('core/session')->unsRefreshCount(); ?>
+<?php } ?>
+<?php } ?>
+
+<!--<script src="<?php echo $this->getSkinUrl(); ?>js/vendor/jquery.flexslider-min.js" type="text/javascript"></script>-->
+<!--<script src="<?php echo $this->getSkinUrl(); ?>js/main.js"></script>--> <!--your custom js -->
+<script type="text/javascript">
+// Can also be used with $(document).ready()
+j8(window).load(function() {
+  j8('.flexslider2').flexslider({
+    animation: "slide",
+    animationLoop: true,
+    itemWidth: 200,
+    minItems: 2,
+    maxItems: 4,
+    directionNav: false,
+    controlNav: true
+  });
+});
+</script>
+
+<script>
+$j(document).ready(function(){
+  // $j('.add-to-cart').css('display','none');
+  //$j('.match-postcodes .add-to-cart').css('display',''); 
+  $j('#product-options-wrapper').css('display','none');
+//$j('.product-options-bottom').css('display','none');
+  $j('.main').find('.my-account').parent('.col-main').addClass('bg-dashboard-right');
+// $j('body').on('click', function(){      
+//    $j('#acctn-dropdown').hide('slow');
+// });
+  $j('#header-search').find('.mt-srch').html('<i class="fa fa-search"></i>');
+});
+
+$j('.btn-quick').click(function(){
+$j('#popup_window').find('#popup_window_content').load(function(){
+    $j(this).contents().find('.top-section').css('display','none');
+    $j(this).contents().find('.top-middle').css('display','none');
+    $j(this).contents().find('.menu-part').css('display','none');
+    $j(this).contents().find('.breadcrumbs').css('display','none');
+    $j(this).contents().find('#secure-pay').css('display','none');
+    $j(this).contents().find('#footer-upper').css('display','none');
+    $j(this).contents().find('#follow-us').css('display','none');
+    $j(this).contents().find('footer').css('display','none');
+    $j(this).contents().find('#copy').css('display','none');
+   /* $j(this).contents().find('.header-language-background').css('display','none');
+    $j(this).contents().find('.page-header').css('display','none');
+    $j(this).contents().find('.footer-container').css('display','none');
+    $j(this).contents().find('.box-collateral').css('display','none');
+    $j(this).contents().find('.breadcrumbs').css('display','none'); */
+}); 
+});
+</script>
+
+

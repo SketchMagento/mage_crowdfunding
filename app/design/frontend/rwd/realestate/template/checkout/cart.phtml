@@ -1,0 +1,286 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @var $this Mage_Checkout_Block_Cart
+ */
+?>
+<?php
+$_cart = Mage::getSingleton('checkout/cart'); $_quote = $_cart->getQuote(); 
+$_country = Mage::getSingleton('core/session')->getCountry();
+$_state = Mage::getSingleton('core/session')->getState();
+$_postcode = Mage::getSingleton('core/session')->getPostcode(); 
+//set variables and get rates
+$_quote->getShippingAddress()
+	->setCountryId('IN')->setRegion($_state)->setRegionId(1)
+	->setPostcode($_postcode)->setCollectShippingRates(true);
+$_quote->save(); 
+$_rates = $_quote->getShippingAddress()->getAllShippingRates(); $allowed_rates = array(); 
+foreach ($_rates as $_rate) { array_push( $allowed_rates, $_rate->getCode() ); }
+$_shippingCode = $allowed_rates[0];
+if (!empty($_shippingCode)) { 
+  $address = $_quote->getShippingAddress(); 
+  if ($address->getCountryId() == '') $address->setCountryId('IN'); 
+  if ($address->getRegion() == '') $address->setRegion('AP'); 
+  if ($address->getRegionId() == '') $address->setRegionId('1'); 
+  //if ($address->getCity() == '') $address->setCity(''); 
+  if ($address->getPostcode() == '') $address->setPostcode($_postcode); 
+  $address->setShippingMethod($_shippingCode)->setCollectShippingRates(true); 
+  $_quote->save(); 
+}
+?>
+<?php $_priceDisplay = ($this->helper('tax')->displayCartBothPrices()) ? 'display-both-prices' : 'display-single-price'; ?>
+<div class="cart <?php echo $_priceDisplay; ?>">
+    <section id="registration">
+    <div class="container">
+        <div class="row">
+            <div class="create-ac">
+                <div class="create-hd">
+		<!--<div class="page-title title-buttons">-->
+        
+        <h4><?php echo $this->__('Shopping Cart') ?></h4>
+       
+        <?php if(!$this->hasError()): ?>
+        <ul class="checkout-types top">
+        <?php foreach ($this->getMethods('top_methods') as $method): ?>
+            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+            <li><?php echo $methodHtml; ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+	<!--</div>-->
+   </div>
+                 </div>
+        </div>
+    </div>
+</section> 
+    
+    
+    
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <section id="cart-table">
+    <div class="container">
+        <div class="row">
+            <div class="cart-part table-responsive">
+                
+                
+                
+    <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+	    <!--<table id="shopping-cart-table" class="cart-table data-table">-->
+            <table id="shopping-cart-table" class="table table-bordered table-responsive">
+            <col width="1" />
+            <!--<col width="1" />-->
+            <col width="1" />
+	    <col width="1" />
+            <col width="1" />
+            <col width="1" />
+            <col width="1" />
+            <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+            <col width="1" />
+            <col width="1" />
+            <?php endif; ?>
+
+        <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+            <thead>
+                <tr>
+                    <th rowspan="<?php echo $mergedCells; ?>" class="text-center"><?php echo $this->__('Product') ?></th>
+
+		    <!--<th rowspan="<?php //echo $mergedCells; ?>">&nbsp;</th>-->
+
+                    <th class="text-center" colspan="<?php echo $mergedCells; ?>">
+			<!--<div class="cart-price-placeholder">--> 
+			<?php echo $this->__('Price') ?>
+			<!--</div>-->
+                    </th>
+
+                    <th class="text-center" colspan="<?php echo $mergedCells; ?>">
+			<!--<div class="cart-price-placeholder">--> 
+			<?php echo $this->__('Delivery Fee / Order') ?>
+			<!--</div>-->
+                    </th>
+
+                    <th rowspan="<?php echo $mergedCells; ?>" class="text-center">
+                        <?php echo $this->__('Qty') ?>
+                        <?php /*if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                            <span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span>
+                        <?php endif*/ ?>
+                    </th>
+
+                    <th class="text-center" colspan="<?php echo $mergedCells; ?>">
+			<!--<div class="cart-total-placeholder">-->
+                        <?php echo $this->__('Subtotal') ?>
+			<!--</div>-->
+                    </th>
+
+                    <th class="a-center" rowspan="<?php echo $mergedCells; ?>">Action</th>
+
+                </tr>
+                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <tr>
+                    <th class="a-center cart-price-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th class="a-center cart-price-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                    <th class="a-center cart-total-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th class="a-center cart-total-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                </tr>
+                <?php endif; ?>
+            </thead>
+
+            <!--<tfoot>
+                <tr>
+                    <td colspan="50" class="a-right cart-footer-actions">
+                      
+                        <button type="submit" style="visibility:hidden;" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Shopping Cart'); ?>" class="button2 btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+
+                        <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Empty Cart'); ?>" class="button2 btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Empty Cart'); ?></span></span></button>
+
+                        <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Shopping Cart'); ?>" class="button2 btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+
+                        <span class="or">-<?php echo $this->__('or'); ?>-</span>
+
+                        <?php if($this->getContinueShoppingUrl()): ?>
+                            <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button2 btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+                        <?php endif; ?>
+                        <!--[if lt IE 8]>
+                        <input type="hidden" id="update_cart_action_container" />
+                        <script type="text/javascript">
+                        //<![CDATA[
+                            Event.observe(window, 'load', function()
+                            {
+                                // Internet Explorer (lt 8) does not support value attribute in button elements
+                                $emptyCartButton = $('empty_cart_button');
+                                $cartActionContainer = $('update_cart_action_container');
+                                if ($emptyCartButton && $cartActionContainer) {
+                                    Event.observe($emptyCartButton, 'click', function()
+                                    {
+                                        $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                        $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                        $cartActionContainer.setValue('empty_cart');
+                                    });
+                                }
+
+                            });
+                        //]]>
+                        </script>
+                        
+                    </td>
+                </tr>
+            </tfoot>-->
+
+            <tbody>
+            <?php foreach($this->getItems() as $_item): ?>
+                <?php echo $this->getItemHtml($_item) ?>
+            <?php endforeach ?>
+
+               <tr class="grey">
+                  <td class="no-border">&nbsp;</td>
+                  <td class="no-border">&nbsp;</td>
+                  <td class="no-border">&nbsp;</td>          
+                  <td class="t-amount-pay no-border">Amount Payable</td>
+                  <td class="t-gross-total no-border"><h3><?php echo $this->getChildHtml('totals'); ?></h3></td>
+                  <td class="no-border">&nbsp;</td>
+               </tr>
+            </tbody>
+        </table>
+        <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+    </form>
+                
+     </div>
+        </div>
+    </div>
+</section>
+
+    <?php //echo $this->getChildHtml('shopping.cart.table.after'); ?>
+    
+</div>
+
+<section id="discount">
+    <div class="container">
+        <div class="row">
+            <div class="discount-inner">
+                <div class="col-md-6">
+                    <div class="discount-left">
+                        <ul>
+                            <li>
+                                <?php echo $this->getChildHtml('checkout_cart_widget') ?>
+        <?php echo $this->getChildHtml('coupon') ?>
+        <?php echo $this->getChildHtml('checkout.cart.extra') ?>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="discount-right">
+                        <ul>
+                            <li>
+                                <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="btn btn-proc-chek" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')"><?php echo $this->__('Continue Shopping') ?></button>
+                                
+                            </li>
+                            <li>
+                                <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <li class="method-<?php echo preg_replace("/[^_a-zA-Z0-9-]/", '-', $method); ?>"><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--<div class="cart-totals-wrapper">
+        <div class="cart-totals">
+            <?php echo $this->getChildHtml('totals'); ?>
+            <?php if(!$this->hasError()): ?>
+            <ul class="checkout-types bottom">
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <li class="method-<?php echo preg_replace("/[^_a-zA-Z0-9-]/", '-', $method); ?>"><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
+        </div>
+    </div>-->
+
+    <?php echo $this->getChildHtml('crosssell') ?>
+
+<!--<section id="secure-pay">
+    <div class="container">
+        <img src="<?php echo $this->getSkinUrl(); ?>images/secure-pay.jpg" alt=""/>
+    </div>
+</section>-->
+            

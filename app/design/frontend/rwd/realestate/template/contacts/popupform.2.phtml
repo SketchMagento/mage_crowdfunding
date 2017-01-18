@@ -1,0 +1,115 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+if(count($_POST) > 0){ 
+  $_fields = $this->getRequest()->getParams();
+  Mage::getSingleton('core/session')->setCountry($_fields['country']);
+  Mage::getSingleton('core/session')->setState($_fields['state']);
+  Mage::getSingleton('core/session')->setPostcode($_fields['postcode']); 
+  Mage::getSingleton('core/session')->setVisit(1); 
+  Mage::getSingleton('core/session')->setRefreshCount(0);
+  echo '<meta http-equiv="refresh" content="0; url='.Mage::getBaseUrl().'">';
+}
+?>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<!--<div class="page-title">
+    <h1><?php echo Mage::helper('core')->__('Enter Country, State And Postcode') ?></h1>
+</div>-->
+
+<form action="" id="popupForm" method="post" class="scaffold-form" target="_parent">
+
+<div class="fieldset">
+<h2 class="legend"><?php echo Mage::helper('core')->__('Country, State and Postcode') ?></h2>
+<p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+
+<ul class="form-list">
+    <li>
+     <div class="field">
+       <label for="country" class="required"><em>*</em><?php echo Mage::helper('core')->__('Country') ?></label>
+       <div class="input-box">
+         <input name="country" id="country" title="<?php echo Mage::helper('core')->__('Country') ?>" value="India" class="input-text required-entry" type="text" readonly="readonly" />
+       </div>
+     </div>
+    </li>
+    <li>
+     <div class="field">
+       <label for="state" class="required"><em>*</em><?php echo Mage::helper('core')->__('State') ?></label>
+       <div class="input-box">
+         <input name="state" id="state" title="<?php echo Mage::helper('core')->__('State') ?>" value="" class="input-text required-entry" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" />
+       </div>
+     </div>
+    </li>
+    <li>
+     <div class="field"> 
+      <label for="postcode" class="required"><em>*</em><?php echo Mage::helper('core')->__('Postcode') ?></label>
+      <div class="input-box">
+        <input name="postcode" id="postcode" title="<?php echo Mage::helper('core')->__('Postcode') ?>" value="" class="input-text required-entry" type="text" />
+      </div>
+     </div>  
+   </li>
+</ul>
+</div>
+<div class="buttons-set">
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var contactForm = new VarienForm('popupForm', true);
+//]]>
+</script>
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript">
+jQuery(function() {
+    var availableTags = [
+      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", 
+      "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", 
+      "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", 
+      "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", 
+      "Chandigarh", "Andaman and Nicobar Islands", "Dadra and Nagar Haveli", "Daman and Diu", "Lakshadweep", 
+      "Delhi", "Puducherry" ];
+    jQuery( "#state" ).autocomplete({
+      //source: availableTags
+      source: function(req, responseFn) {
+        var re = jQuery.ui.autocomplete.escapeRegex(req.term);
+        var matcher = new RegExp( "^" + re, "i" );
+        var a = jQuery.grep( availableTags, function(item,index){
+            return matcher.test(item);
+        });
+        responseFn( a );
+      }
+    });
+});
+</script>
+
+
+

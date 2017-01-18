@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package>
+    <name>autoshipping</name>
+    <version>1.0.4</version>
+    <stability>stable</stability>
+    <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Automatically apply shipping when customers:&#xD;
+add items to cart,&#xD;
+update items in cart,&#xD;
+remove items from cart</summary>
+    <description>This extension automatically applies shipping based on two parameters:&#xD;
+&#xD;
+Country:&#xD;
+&#xD;
+When a customer first go to the shopping cart, shipping method is calculated using the store's default country (System-&gt;Configuration-&gt;General-&gt;Countries Options-&gt;Default Country).&#xD;
+If the customer is logged in, the country of the customer's shipping address is used.&#xD;
+If a customer selected a country and clicked 'get quote', the selected is used.&#xD;
+&#xD;
+Sort order:&#xD;
+&#xD;
+Sort order of shipping methods can be set up at System-&gt;Configuration-&gt;Shipping Methods-&gt;Shipping Method Name-&gt;Sort Order&#xD;
+&#xD;
+Shipping method has the smallest sort order value will get applied.&#xD;
+&#xD;
+For examle,&#xD;
+&#xD;
+Set Free shipping to have a sort order of 1, Flat Rate to have a sort order of 2.&#xD;
+&#xD;
+When freeshipping is available, it will be applied. When it is not available, flat rate is applied.&#xD;
+&#xD;
+Shipping rates will get recalculated when the customer:&#xD;
+&#xD;
+add items to cart&#xD;
+update items in cart&#xD;
+remove items from cart</description>
+    <notes>Remove unnecessary files</notes>
+    <authors><author><name>Tony Hou</name><user>tony2523</user><email>t@tonyhou.com</email></author></authors>
+    <date>2012-09-20</date>
+    <time>08:52:44</time>
+    <contents><target name="magecommunity"><dir name="TonyH"><dir name="AutoShipping"><dir name="Model"><file name="Observer.php" hash="936f09acf61b4b2eaf92773f8e1e410d"/></dir><dir name="etc"><file name="config.xml" hash="628b063f582da267e2f8dfaa20c77a1d"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="TonyH_AutoShipping.xml" hash="5e408ea6b1bec37034f9637dee5317d4"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>
