@@ -1,6 +1,7 @@
 # ------------
 # untracked files in the distribution
 # ------------
+.htaccess
 .htaccess.sample
 app/code/community/Phoenix/Moneybookers/
 app/code/community/Cm/RedisSession/
