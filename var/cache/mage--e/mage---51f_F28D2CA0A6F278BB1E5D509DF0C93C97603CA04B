@@ -1,0 +1,34 @@
+<div class="nav-container nav navbar-nav" id="wp-nav-container"></div>
+<script type="text/javascript">
+//<![CDATA[
+var CUSTOMMENU_POPUP_WIDTH = 0;
+var CUSTOMMENU_POPUP_TOP_OFFSET = 0;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_DISPLAYING = 150;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_HIDING = 100;
+var CUSTOMMENU_RTL_MODE = 0;
+var CUSTOMMENU_MOBILE_MENU_WIDTH_INIT = 771;
+var wpCustommenuTimerShow = {};
+var wpCustommenuTimerHide = {};
+var wpActiveMenu = null;
+var wpMobileMenuEnabled = 1;
+var wpMenuAjaxUrl = '';
+var wpMoblieMenuAjaxUrl = '';
+var wpPopupMenuContent = '';
+var wpMobileMenuContent = '';
+if ($('wp-nav-container') != undefined) {
+    $('wp-nav-container').update("    <div id=\"custommenu-loading\" class=\"\">\n        <div class=\"menu\">\n            <div class=\"parentMenu menu0\">\n                <a href=\"javascript:;\">\n                    <span><\/span>\n                <\/a>\n            <\/div>\n        <\/div>\n        <div class=\"clearBoth\"><\/div>\n    <\/div>\n    <div id=\"custommenu\" class=\"\" style=\"display:none;\">\n        <div class=\"menu\">\n            <div class=\"parentMenu menu0\">\n                <a href=\"javascript:;\">\n                    <span><\/span>\n                <\/a>\n            <\/div>\n        <\/div>\n        <div class=\"clearBoth\"><\/div>\n    <\/div>\n    <div id=\"custommenu-mobile\" class=\"\" style=\"display:none;\">\n        <div id=\"menu-button\" onclick=\"wpMenuButtonToggle()\">\n            <a href=\"javascript:void(0);\">\n                <span>Menu<\/span>\n            <\/a>\n        <\/div>\n        <div id=\"menu-content\" style=\"display:none;\">\n            <div id=\"menu-mobile-loading\" class=\"menu-mobile level0\">\n                <div class=\"parentMenu\">\n                    <a href=\"javascript:;\">\n                        <span><\/span>\n                    <\/a>\n                <\/div>\n            <\/div>\n            <div class=\"clearBoth\"><\/div>\n        <\/div>\n    <\/div>");
+}
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+Event.observe(document, 'dom:loaded', function(){
+    $$('.skip-nav').each(function(element) {
+        element.observe('click', function(event) {
+            wpMenuButtonToggle();
+        });
+    });
+});
+//]]>
+</script>

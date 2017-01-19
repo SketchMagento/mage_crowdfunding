@@ -1,0 +1,7 @@
+<div class="f-accounts">
+<h3>Account</h3>
+<ul>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/customer/account/?___SID=U">Your Account</a></li>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/sales/guest/form/?___SID=U">Order Tracking</a></li>
+</ul>
+</div>

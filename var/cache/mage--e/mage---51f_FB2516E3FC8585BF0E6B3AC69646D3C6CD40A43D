@@ -1,0 +1,11 @@
+<div class="policy">
+<h3>Policy</h3>
+<ul>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/payments/?___SID=U">Payments</a></li>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/returns-cancellations/?___SID=U">Returns &amp; Cancellations</a></li>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/warranty-guarantee/?___SID=U">Warranty &amp; Guarantee</a></li>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/shipping-policy/?___SID=U">Shipping Policy</a></li>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/privacy-policy/?___SID=U">Privacy Policy</a></li>
+<li><a href="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/terms-of-use/?___SID=U">Terms of Use</a></li>
+</ul>
+</div>
