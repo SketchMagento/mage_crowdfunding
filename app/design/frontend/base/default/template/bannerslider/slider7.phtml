@@ -9,7 +9,7 @@ $click_url = $this->getUrl('bannerslider/index/click');
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/magestore/bannerslider/flexslider.css') ?>" media="all" />
 <script type="text/javascript">   
     var j7 = jQuery.noConflict();
-    j7(window).load(function() {
+    j7(document).ready(function($) {
         j7('.flexslider-7-<?php echo $blocks['bannerslider_id'] ?>').flexslider({
             animation: "<?php echo $blocks['animationB'];?>",
             slideshowSpeed: <?php echo $blocks['slider_speed'];?>

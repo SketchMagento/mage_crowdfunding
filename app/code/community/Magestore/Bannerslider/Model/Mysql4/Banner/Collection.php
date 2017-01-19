@@ -57,7 +57,9 @@ class Magestore_Bannerslider_Model_Mysql4_Banner_Collection extends Mage_Core_Mo
                 );
                 $this->_addedTable[] = $field;
             }
-            return parent::addFieldToFilter("IF($field.value IS NULL, main_table.$field, $field.value)", $condition);
+            $this->getSelect()->where("IF($field.value IS NULL, main_table.$field, $field.value) = $condition");
+                return $this;
+            // return parent::addFieldToFilter("IF(faq_value_$field.value IS NULL, main_table.$field, faq_value_$field.value)", $condition);
         }
         if ($field == 'store_id') {
             $field = 'main_table.banner_id';

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -49,11 +49,10 @@
         <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
             <?php // Product Image ?>
             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
-                <?php /* Based on the native RWD styling, product images are displayed at a max of ~400px 
-                         wide when viewed on a one column page layout with four product columns from a 
-                         1280px viewport. For bandwidth reasons, we are going to serve a 300px image, as 
-                         it will look fine at 400px and most of the times, the image will be displayed at 
-                         a smaller size (eg, if two column are being used or viewport is smaller than 1280px).
+                <?php /* Based on the native RWD styling, product images are displayed at a max of ~400px wide when viewed on a
+                        one column page layout with four product columns from a 1280px viewport. For bandwidth reasons,
+                        we are going to serve a 300px image, as it will look fine at 400px and most of the times, the image
+                        will be displayed at a smaller size (eg, if two column are being used or viewport is smaller than 1280px).
                         This $_imgSize value could even be decreased further, based on the page layout
                         (one column, two column, three column) and number of product columns. */ ?>
                 <?php $_imgSize = 300; ?>
@@ -88,9 +87,9 @@
                     </div>
                     <div class="product-secondary">
                         <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
-                            <p class="action"><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                            <p class="action"><button type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
                         <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
-                            <p class="action"><a title="<?php echo $this->__('View Details') ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a></p>
+                            <p class="action"><a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a></p>
                         <?php else: ?>
                             <p class="action availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                         <?php endif; ?>
@@ -101,8 +100,6 @@
                             <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
                                 <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
                             <?php endif; ?>
-				<li><span class="separator">|</span> 
-			    <button class="button1" title="<?php echo $this->__('Quick View') ?>" onclick="showLocation('<?php echo $_product->getProductUrl() ?>')" onblur='closePopup()' type="button">Quick View</button></li>
                         </ul>
                     </div>
                     <div class="desc std">
@@ -153,9 +150,9 @@
                     <?php endif; ?>
                     <div class="actions">
                         <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
-                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                            <button type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
-                            <a title="<?php echo $this->__('View Details') ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
+                            <a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                         <?php endif; ?>
@@ -166,8 +163,6 @@
                             <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
                                 <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
                             <?php endif; ?>
-				<li><span class="separator">|</span> 
-			    <button class="button1" title="<?php echo $this->__('Quick View') ?>" onclick="showLocation('<?php echo $_product->getProductUrl() ?>')" onblur='closePopup()' type="button">Quick View</button></li>
                         </ul>
                     </div>
                 </div>
@@ -196,14 +191,3 @@ if ($this->getChild('after')) {
     }
 }
 ?>
-
-<script type="text/javascript">// <![CDATA[
-function showLocation(url) {
-    winCompare = new Window({id:'popup_window',className:'magento',title:'Quick View',url:url,opacity:1,width:800,height:424,minimizable:false,maximizable:false,showEffectOptions:{duration:0.4},hideEffectOptions:{duration:0.4},closable:true,destroyOnClose:true,recenterAuto:false});
-    winCompare.setZIndex(100);
-    winCompare.showCenter(true);
-}
-function closePopup() {
-    Windows.close('popup_window');
-}
-// ]]></script>

@@ -18,30 +18,30 @@
   </a>
 </div>
 	<script type="text/javascript">
+		banerpopup = new Lightbox('magestore-bannerslider-popup');
 		Event.observe(window, 'load', function () {
-			socialLogin = new Lightbox('magestore-bannerslider-popup');
-			socialLogin.open();
+			banerpopup.open();
 			Event.observe('bg_fade', 'click', function () {
-				socialLogin.close();
+				banerpopup.close();
 			}); 
 		});
 		Event.observe('magestore-bannerslider-popup-close', 'click', function () {
-			socialLogin.close();
+			banerpopup.close();
 		}); 
 		
 		Event.observe(window, 'resize', function () { 		
-			socialLogin._centerWindow('magestore-bannerslider-popup');
+			banerpopup._centerWindow('magestore-bannerslider-popup');
 		});
                 
-                  function bannerClicks(id_banner,id_slider){
-		var click_url = '<?php echo $this->getUrl('bannerslider/index/click'); ?>';
-		banner_id = id_banner;
-		new Ajax.Request(click_url,{
-			method: 'post',
-			parameters:{id_banner: banner_id,slider_id:id_slider},
-			onFailure: '',
-			onSuccess: ''	
-		});
-                }
+        function bannerClicks(id_banner,id_slider){
+			var click_url = '<?php echo $this->getUrl('bannerslider/index/click'); ?>';
+			banner_id = id_banner;
+			new Ajax.Request(click_url,{
+				method: 'post',
+				parameters:{id_banner: banner_id,slider_id:id_slider},
+				onFailure: '',
+				onSuccess: ''	
+			});
+        }
 	</script>
 <?php //endif; ?>

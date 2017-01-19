@@ -10,7 +10,7 @@ $click_url = $this->getUrl('bannerslider/index/click');
 <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/magestore/bannerslider/flexslider.css') ?>" media="all" />
 <script type="text/javascript">    
     var j9 = jQuery.noConflict();
-    j9(window).load(function() {
+    j9(document).ready(function($) {
         // The slider being synced must be initialized first
         j9('#carousel-9-<?php echo $blocks['bannerslider_id'] ?>').flexslider({
             animation: "slide",

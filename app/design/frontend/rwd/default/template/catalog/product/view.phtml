@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -39,7 +39,7 @@
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="product-view">
     <div class="product-essential">
-        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <form action="<?php echo $this->getSubmitUrl($_product, array('_secure' => $this->_isSecure())) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
             <?php echo $this->getBlockHtml('formkey') ?>
             <div class="no-display">
                 <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -77,7 +77,7 @@
                     </div>
                 <?php endif;?>
 
-		<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('checkdelivery/checkdelivery.phtml')->toHtml(); ?> 
+
 
 
                 <?php echo $this->getChildHtml('other');?>
@@ -91,11 +91,11 @@
             <div class="add-to-cart-wrapper">
                 <?php echo $this->getChildHtml('product_type_data') ?>
                 <?php echo $this->getChildHtml('extrahint') ?>
-                
+
                 <?php if (!$this->hasOptions()):?>
                     <div class="add-to-box">
                         <?php if($_product->isSaleable()): ?>
-                            <?php echo $this->getChildHtml('addtocart') ?> 
+                            <?php echo $this->getChildHtml('addtocart') ?>
                             <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
                                 <span class="or"><?php echo $this->__('OR') ?></span>
                             <?php endif; ?>
@@ -110,9 +110,9 @@
                         <?php echo $this->getChildHtml('sharing') ?>
                     </div>
                 <?php endif; ?>
-            </div>          
+            </div>
 
-            <?php //echo $this->getChildHtml('related_products') ?>
+            <?php echo $this->getChildHtml('related_products') ?>
 
             <div class="clearer"></div>
             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
@@ -187,23 +187,5 @@
 
     <?php echo $this->getChildHtml('upsell_products') ?>
     <?php echo $this->getChildHtml('product_additional_data') ?>
-
-    <?php
-	/*$methods = Mage::getSingleton('shipping/config')->getActiveCarriers(); $options = array();
-	foreach($methods as $_code => $_method)	{
-	   if(!$_title = Mage::getStoreConfig("carriers/$_code/title")) $_title = $_code;
-	   $options[] = array('value' => $_code, 'label' => $_title . " ($_code)");
-	}
-        var_dump($options);*/
-    ?>
-    <?php
-	/*$pmethods = Mage::getSingleton('payment/config')->getActiveMethods(); $poptions = array();
-	foreach($pmethods as $_code => $_method) {
-	   if(!$_title = Mage::getStoreConfig("payment/$_code/title")) $_title = $_code;
-	   $poptions[] = array('value' => $_code, 'label' => $_title . " ($_code)");
-	}
-        var_dump($poptions);*/
-    ?>
-
 
 </div>

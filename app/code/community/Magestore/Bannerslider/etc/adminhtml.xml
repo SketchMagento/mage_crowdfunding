@@ -29,17 +29,17 @@
                 <bannerslider module="bannerslider" translate="title">
                     <title>Manage Sliders</title>
                     <sort_order>1</sort_order>
-                    <action>bannerslideradmin/adminhtml_bannerslider</action>
+                    <action>adminhtml/bannerslider_bannerslider</action>
                 </bannerslider>
                 <banner module="bannerslider" translate="title">
                     <title>Manage Banners</title>
                     <sort_order>2</sort_order>
-                    <action>bannerslideradmin/adminhtml_banner/index</action>
+                    <action>adminhtml/bannerslider_banner/index</action>
                 </banner>
                 <standard_slider module="bannerslider" translate="title">
                     <title>Preview Slider Styles</title>
                     <sort_order>3</sort_order>
-                    <action>bannerslideradmin/adminhtml_standardslider</action>
+                    <action>adminhtml/bannerslider_standardslider</action>
                 </standard_slider>
                 <banner_report module="bannerslider" translate="title">
                     <title>Report Banners</title>                   
@@ -47,12 +47,12 @@
                     <children>
                         <banner_report_all module="bannerslider" translate="title">
                             <title>Per Slider</title>
-                            <action>bannerslideradmin/adminhtml_report</action>
+                            <action>adminhtml/bannerslider_report</action>
                             <sort_order>1</sort_order>
                         </banner_report_all>
                         <banner_report_only module="bannerslider" translate="title">
                             <title>All Sliders</title>
-                            <action>bannerslideradmin/adminhtml_report/banner</action>
+                            <action>adminhtml/bannerslider_report/banner</action>
                             <sort_order>2</sort_order>
                         </banner_report_only>
                     </children>

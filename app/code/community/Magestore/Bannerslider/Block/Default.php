@@ -27,7 +27,7 @@ class Magestore_Bannerslider_Block_Default extends Mage_Core_Block_Template {
                     }
                 }
             }
-            $today = date("Y-m-d");
+			$today=Mage::getModel('core/date')->gmtDate();
             $randomise = $block_data->getSortType() ? false : true;
             $banners = Mage::getModel('bannerslider/banner')->getCollection()
                     ->addFieldToFilter('bannerslider_id', $block_data->getId())

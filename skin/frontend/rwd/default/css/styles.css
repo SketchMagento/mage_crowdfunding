@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /*! normalize.css v2.0.1 | MIT License | git.io/normalize */
@@ -515,36 +515,6 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-body.cms-page-view .overlay_magento,
-body.catalog-category-view .overlay_magento,
-body.catalogsearch-result-index .overlay_magento{
-  background:#ffffff; 
-  opacity:0.72;
-}
-
-body.cms-page-view .dialog,
-body.catalog-category-view .dialog,
-body.catalogsearch-result-index .dialog{
-  background:#eeeeee;
-  font-weight:700px;
-  font-size:12px;  
-}
-
-body.cms-page-view .dialog iframe,
-body.catalog-category-view .dialog iframe,
-body.catalogsearch-result-index .dialog iframe{
-  border:1px solid #CCCCCC;
-}
-
-body.cms-page-view .dialog #popup_window_content .header-language-background,
-body.cms-page-view .dialog #popup_window_content .page-header,
-body.catalog-category-view .dialog #popup_window_content .header-language-background,
-body.catalog-category-view .dialog #popup_window_content .page-header,
-body.catalogsearch-result-index .dialog #popup_window_content .header-language-background,
-body.catalogsearch-result-index .dialog #popup_window_content .page-header{
-  display:none;
 }
 
 /* ============================================ *
@@ -4216,7 +4186,6 @@ body.catalogsearch-result-index .page-title h1 {
 .products-list .action .button,
 .products-grid .actions .button {
   white-space: normal;
-  display:none !important;
 }
 
 /* -------------------------------------------- *
@@ -5771,11 +5740,11 @@ p.product-name a:hover {
 }
 
 .product-options-bottom {
-  /*background-color: #f4f4f4;
+  background-color: #f4f4f4;
   padding: 15px 20px;
   border: 1px solid #cccccc;
   border-top: 0;
-  margin-bottom: 10px;*/
+  margin-bottom: 10px;
 }
 
 .product-options-bottom:after {
@@ -9719,8 +9688,7 @@ div.paypal-logo span > img {
 }
 .cms-page-view .std h1,
 .cms-no-route .std h1 {
-  /*color: #3399cc;*/
-  color: #636363;
+  color: #3399cc;
 }
 .cms-page-view .std h2,
 .cms-no-route .std h2 {
@@ -10547,6 +10515,10 @@ body[class*="checkout-multishipping-"] #review-buttons-container {
   width: 100%;
 }
 
+.checkout-multishipping-payment-customerbalance input.checkbox {
+  margin-left: 15px;
+}
+
 #multiship-addresses-table > tbody > tr > td.a-center.last > a {
   background-image: none;
 }
@@ -10629,20 +10601,3 @@ div.calendar table td.button {
   color: inherit;
   text-transform: none;
 }
-
-/*============================================*
- * CMS Home Page : products grid
- *============================================*/
-.cms-home .products-grid > li{
-  width:21.864%;
-  margin-right:2.704%
-}
-
-.cms-home .products-grid > li:nth-child(3n+1){
-  clear:none;
-}
-
-
-
-
-

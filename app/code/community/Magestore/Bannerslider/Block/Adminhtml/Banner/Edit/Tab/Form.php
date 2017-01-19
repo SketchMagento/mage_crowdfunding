@@ -130,7 +130,7 @@ class Magestore_Bannerslider_Block_Adminhtml_Banner_Edit_Tab_Form extends Mage_A
             'required' => false,
             'name' => 'image',
         ));
-        $fieldset->addField('start_time', 'date', array(
+      /*   $fieldset->addField('start_time', 'date', array(
             'label' => Mage::helper('bannerslider')->__('Start date'),
             'format' => 'yyyy-MM-dd',
             'required' => true,
@@ -146,7 +146,34 @@ class Magestore_Bannerslider_Block_Adminhtml_Banner_Edit_Tab_Form extends Mage_A
             'image' => $image_calendar,
             'name' => 'end_time',
             'time' => true
-        ));
+        )); */
+		
+		try {
+			$data['start_time']=date('Y-m-d H:i:s',Mage::getModel('core/date')->timestamp(strtotime($data['start_time'])));
+			$data['end_time']=date('Y-m-d H:i:s',Mage::getModel('core/date')->timestamp(strtotime($data['end_time'])));
+		  } catch (Exception $e) {
+			
+		  }
+		  $note = $this->__('The current server time is').': '.$this->formatTime(now(),Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,true);
+		  $fieldset->addField('start_time', 'date', array(
+			  'label'     => Mage::helper('bannerslider')->__('Start time'),
+			  'name'      => 'start_time',
+			  'input_format'  => Varien_Date::DATETIME_INTERNAL_FORMAT,
+			  'image' => $image_calendar,
+			  'format'    =>Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+			  'time' => true,
+			  'required'  => true,
+		  ));
+		  $fieldset->addField('end_time', 'date', array(
+			  'label'     => Mage::helper('bannerslider')->__('End time'),
+			  'name'      => 'end_time',
+			  'input_format'  => Varien_Date::DATETIME_INTERNAL_FORMAT,
+			  'image' => $image_calendar,
+			  'format'    =>Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+			  'time' => true,
+			  'required'  => true,
+			  'note'=>$note,
+		  ));
 
 //        $fieldset->addField('width', 'text', array(
 //            'label' => Mage::helper('bannerslider')->__('Width(px)'),

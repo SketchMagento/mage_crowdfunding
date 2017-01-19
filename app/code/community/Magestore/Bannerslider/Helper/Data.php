@@ -228,16 +228,18 @@ class Magestore_Bannerslider_Helper_Data extends Mage_Core_Helper_Abstract {
 
                 // Any extention would work
                 $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-                $uploader->setAllowRenameFiles(false);
+                $uploader->setAllowRenameFiles(true);
 
                 $uploader->setFilesDispersion(true);
 
-                $uploader->save($banner_image_path, $_FILES['image']['name']);
+                $uploader->save($banner_image_path, $uploader->getCorrectFileName($_FILES['image']['name']));
+                // Add by Hoang Vuong: 30/08/2013
+                $image = substr(strrchr($uploader->getUploadedFileName(), "/"), 1);
             } catch (Exception $e) {
                 
             }
 
-            $image = $_FILES['image']['name'];
+            // $image = $_FILES['image']['name'];
         }
         return $image;
     }
@@ -336,7 +338,7 @@ class Magestore_Bannerslider_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     public function getPreviewSlider() {
-        return Mage::getSingleton('adminhtml/url')->getUrl('bannerslideradmin/adminhtml_standardslider/preview/');
+        return Mage::getSingleton('adminhtml/url')->getUrl('*/bannerslider_standardslider/preview/');
     }
 
     public function getPathImageForBanner($image) {

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -30,20 +30,3 @@
         <address class="copyright"><?php echo $this->getCopyright() ?></address>
     </div>
 </div>
-<script>
-$j(document).ready(function(){
-  $j('.add-to-cart').css('display','none');
-  $j('#product-options-wrapper').css('display','none');
-  //$j('.product-options-bottom').css('display','none');
-});
-$j('.button1').click(function(){
-$j('#popup_window').find('#popup_window_content').load(function(){
- $j(this).contents().find('.header-language-background').css('display','none');
- $j(this).contents().find('.page-header').css('display','none');
- $j(this).contents().find('.footer-container').css('display','none');
- $j(this).contents().find('.box-collateral').css('display','none');
- $j(this).contents().find('.breadcrumbs').css('display','none');
-}); 
-});
-</script>
-

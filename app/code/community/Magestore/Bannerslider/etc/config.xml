@@ -23,7 +23,7 @@
 <config>
     <modules>
         <Magestore_Bannerslider>
-            <version>3.0.0</version>
+            <version>4.0.1</version>
         </Magestore_Bannerslider>
     </modules>
     <frontend>
@@ -55,13 +55,13 @@
     </frontend>
     <admin>
         <routers>
-            <bannerslideradmin>
-                <use>admin</use>
-                <args>
-                    <module>Magestore_Bannerslider</module>
-                    <frontName>bannerslideradmin</frontName>
-                </args>
-            </bannerslideradmin>
+            <adminhtml> 
+                <args> 
+                    <modules> 
+                        <Magestore_Bannerslider after="Mage_Adminhtml">Magestore_Bannerslider_Adminhtml</Magestore_Bannerslider>
+                    </modules> 
+                </args> 
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>

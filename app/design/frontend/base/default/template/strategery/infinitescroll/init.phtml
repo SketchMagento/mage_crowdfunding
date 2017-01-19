@@ -1,5 +1,4 @@
 <?php
-/** @var $this Strategery_Infinitescroll_Block_Init */
 /**
  * InfiniteScroll - Magento Integration
  *
@@ -14,63 +13,66 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  * @copyright  Copyright (c) 2014 Strategery Inc. (http://usestrategery.com)
  *
- * @author     Enrique Piatti (contacto@enriquepiatti.com)
+ * @author     Gabriel Somoza (gabriel@strategery.io)
+ * @link       https://strategery.io
+ *
+ * @author     Damian A. Pastorini (damian.pastorini@strategery.io)
+ *
  */
+/** @var $this Strategery_Infinitescroll_Block_Init */
 ?>
 <?php if($this->isEnabled()): ?>
-<?php
+	<?php
 	$configData = $this->getConfigData();
 	$helper = Mage::helper('infinitescroll');
 	$productListMode = $this->getProductListMode();
-?>
-<?php if(Mage::getStoreConfig('infinitescroll/general/jquery')): ?>
+	?>
+	<?php if(Mage::getStoreConfig('infinitescroll/general/jquery')): ?>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="<?php echo $this->getJsUrl('jquery/jquery.1.10.2.min.js') ?>"><\/script>')</script>
 		<script>jQuery.noConflict();</script>
-<?php endif ?>
-<?php if($iasConfig = $helper->getConfigData('advanced/ias_config')) :?>
+	<?php endif ?>
+	<?php if($iasConfig = $helper->getConfigData('advanced/ias_config')) :?>
 		<script src="<?php echo $this->getSkinUrl($iasConfig) ?>"></script>
-<?php endif ?>
-<script type="text/javascript">
-//<![CDATA[
-	windowLoadedFlag = false;
-	window.onload = function () {
-		windowLoadedFlag = true;
-	};
-
-	<?php // use: jQueryWaiter.execute(function(){ // safe jQuery code here });  ?>
-	var jQueryWaiter = function () {
-		var functions = [];
-		var timer = function() {
-			if( typeof window.jQuery != 'undefined') {
-				while (functions.length) {
-					functions.shift()(window.jQuery);
-				}
-			} else {
-				window.setTimeout(timer, 100);
-			}
+	<?php endif ?>
+	<script type="text/javascript">
+	//<![CDATA[
+		windowLoadedFlag = false;
+		window.onload = function () {
+			windowLoadedFlag = true;
 		};
-		timer();
-		return {
-			execute: function(onJQueryReady) {
-				if (window.jQuery) {
-					onJQueryReady(window.jQuery);
+		<?php // use: jQueryWaiter.execute(function(){ // safe jQuery code here });  ?>
+		var jQueryWaiter = function () {
+			var functions = [];
+			var timer = function() {
+				if( typeof window.jQuery != 'undefined') {
+					while (functions.length) {
+						functions.shift()(window.jQuery);
+					}
 				} else {
-					functions.push(onJQueryReady);
+					window.setTimeout(timer, 100);
 				}
-			}
-		};
-	}();
-
-	window.SgyIAS = {
-		debug: false,
-		_log: function(object) {
-			if(this.debug) {
-				console.log(object);
-			}
-		},
-		init: function(){
-			jQuery.getScript("<?php echo $this->getJsUrl('jquery/infinitescroll/jquery-ias.min.js') ?>", function() {
+			};
+			timer();
+			return {
+				execute: function(onJQueryReady) {
+					if (window.jQuery) {
+						onJQueryReady(window.jQuery);
+					} else {
+						functions.push(onJQueryReady);
+					}
+				}
+			};
+		}();
+		window.SgyIAS = {
+			debug: <?php echo $helper->getConfigData('general/debug'); ?>,
+			_log: function(object) {
+				if(this.debug) {
+					console.log(object);
+				}
+			},
+			init: function(){
+				jQuery.getScript("<?php echo $this->getJsUrl('jquery/infinitescroll/jquery-ias.min.js') ?>", function() {
 					jQuery(function($) {
 						var config = {
 							item: '<?php echo $productListMode == 'grid' ? $helper->getConfigData('selectors/items_grid') : $helper->getConfigData('selectors/items_list') ?>',
@@ -80,7 +82,7 @@
 							delay: 600,
 							negativeMargin: <?php echo (int) $helper->getConfigData('design/buffer_px') ?>,
 							history: {
-								prev: '.prev'
+								prev: '<?php echo $helper->getConfigData('selectors/previous') ?>'
 							},
 							noneleft: {
 								text: '<?php echo $helper->jsQuoteEscape($this->__($helper->getConfigData('design/done_text'))) ?>',
@@ -97,37 +99,29 @@
 							trigger: {
 								text: '<?php echo $helper->jsQuoteEscape($this->__($helper->getConfigData('design/load_more_text'))) ?>',
 								html: '<div class="ias-trigger ias-trigger-next" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
-								textPrev: '<?php echo $helper->jsQuoteEscape($this->__($helper->getConfigData('design/load_more_text'))) ?>',
+								textPrev: '<?php echo $helper->jsQuoteEscape($this->__($helper->getConfigData('design/load_more_text_prev'))) ?>',
 								htmlPrev: '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
 								offset: <?php echo (int) $helper->getConfigData('design/load_more_threshold') ?>
 							}
 						};
-
 						if (window.ias_config){
 							$.extend(config, window.ias_config);
 						}
-
 						SgyIAS._log({extension: 'ias', config: config});
 						window.ias = $.ias(config);
-
 						SgyIAS._log({extension: 'paging'});
 						window.ias.extension(new IASPagingExtension());
-
 						SgyIAS._log({extension: 'spinner'});
 						window.ias.extension(new IASSpinnerExtension(config.spinner));
-
 						SgyIAS._log({extension: 'noneleft'});
 						window.ias.extension(new IASNoneLeftExtension(config.noneleft));
-
 						SgyIAS._log({extension: 'trigger'});
 						window.ias.extension(new IASTriggerExtension(config.trigger));
-
 						<?php if($helper->isMemoryActive()): ?>
-						SgyIAS._log({extension: 'history'});
-						window.ias.extension(new IASHistoryExtension(config.history));
+							SgyIAS._log({extension: 'history'});
+							window.ias.extension(new IASHistoryExtension(config.history));
 						<?php endif; ?>
-
-						// debug events
+						// debug events:
 						window.ias.on('scroll', function(scrollOffset, scrollThreshold){
 							SgyIAS._log({eventName: 'scroll', scrollOffset: scrollOffset, scrollThreshold: scrollThreshold});
 						});
@@ -142,6 +136,9 @@
 						});
 						window.ias.on('rendered', function(items){
 							SgyIAS._log({eventName: 'render', items: items});
+							if (typeof $j !== 'undefined' && !!$j) {
+								$j(window).trigger('delayed-resize');
+							}
 						});
 						window.ias.on('noneLeft', function(){
 							SgyIAS._log({eventName: 'noneLeft'});
@@ -152,23 +149,37 @@
 						window.ias.on('ready', function(){
 							SgyIAS._log({eventName: 'ready'});
 						});
-
 						$('<?php echo Mage::getStoreConfig('infinitescroll/selectors/toolbar') ?>').<?php echo $helper->getConfigData('design/hide_toolbar') ? 'hide' : 'show' ?>();
-
+						// custom fix for url protocol issue in jquery ias library:
+						window.ias.getNextUrl = function(container) {
+							if (!container) {
+								container = window.ias.$container;
+							}
+							// always take the last matching item + fix to be protocol relative
+							var nexturl = $(window.ias.nextSelector, container).last().attr('href');
+							if(typeof nexturl !== "undefined") {
+								if (window.location.protocol == 'https:') {
+									nexturl = nexturl.replace('http:', window.location.protocol);
+								} else {
+									nexturl = nexturl.replace('https:', window.location.protocol);
+								}
+							}
+							return nexturl;
+						};
+						// custom fix for url protocol issue in jquery ias library.
 						if(windowLoadedFlag){
 							$(window).load();
 						}
-
 						SgyIAS._log('Done loading IAS.');
-
+						$(document).trigger( "infiniteScrollReady", [window.ias]);
 					});
-			});
-		}
-	};
-	<?php // this will prevent executing the infinite scroll before jQuery is loaded even when jQuery is loaded after this code ?>
-	jQueryWaiter.execute(function(){
-		SgyIAS.init();
-	});
-//]]>
-</script>
+				});
+			}
+		};
+		<?php // this will prevent executing the infinite scroll before jQuery is loaded even when jQuery is loaded after this code ?>
+		jQueryWaiter.execute(function(){
+			SgyIAS.init();
+		});
+	//]]>
+	</script>
 <?php endif ?>

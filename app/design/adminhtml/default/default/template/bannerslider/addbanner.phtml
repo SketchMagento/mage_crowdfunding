@@ -2,7 +2,7 @@
 <?php $banner_id = Mage::app()->getRequest()->getParam('id'); ?>
 <?php if (!$banner_id): ?>
     <div class="entry-edit">
-        <form id="magestore-addbanner" name="magestore-addbanner" enctype="multipart/form-data" method="post" action="<?php echo Mage::getSingleton('adminhtml/url')->getUrl('bannerslideradmin/adminhtml_banner/save/slider/check') ?>">
+        <form id="magestore-addbanner" name="magestore-addbanner" enctype="multipart/form-data" method="post" action="<?php echo Mage::getSingleton('adminhtml/url')->getUrl('*/bannerslider_banner/save/slider/check') ?>">
             <div><input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key"/></div>
             <div><input type="hidden" value="<?php echo $slider_id; ?>" name="bannerslider_id"/></div>
             <div id="bannerslider_add_banner_form_section_content">
@@ -125,7 +125,7 @@
 <?php else: ?>
     <?php $banner = $this->getBanner($banner_id); ?>
     <div class="entry-edit">
-        <form id="magestore-addbanner" name="magestore-addbanner" enctype="multipart/form-data" method="post" action="<?php echo Mage::getSingleton('adminhtml/url')->getUrl('bannerslideradmin/adminhtml_banner/save/slider/check', array('id' => $banner_id)) ?>">
+        <form id="magestore-addbanner" name="magestore-addbanner" enctype="multipart/form-data" method="post" action="<?php echo Mage::getSingleton('adminhtml/url')->getUrl('*/bannerslider_banner/save/slider/check', array('id' => $banner_id)) ?>">
             <div><input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key"/></div>
             <div><input type="hidden" value="<?php echo $slider_id; ?>" name="bannerslider_id"/></div>
             <div id="bannerslider_add_banner_form_section_content">
