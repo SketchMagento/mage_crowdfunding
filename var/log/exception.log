@@ -14507,3 +14507,21 @@ Stack trace:
 #12 /home/web/P-455-realestate/app/Mage.php(684): Mage_Core_Model_App->run(Array)
 #13 /home/web/P-455-realestate/index.php(88): Mage::run('', 'store')
 #14 {main}
+2017-01-19T11:00:17+00:00 ERR (3): 
+exception 'Mage_Core_Exception' with message 'Invalid block type: ' in /home/web/crowdfunding/version9/mage_crowdfunding/app/Mage.php:595
+Stack trace:
+#0 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Model/Layout.php(495): Mage::throwException('Invalid block t...')
+#1 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Model/Layout.php(437): Mage_Core_Model_Layout->_getBlockInstance('', Array)
+#2 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Model/Layout.php(472): Mage_Core_Model_Layout->createBlock('', 'customer_edit')
+#3 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Model/Layout.php(239): Mage_Core_Model_Layout->addBlock('', 'customer_edit')
+#4 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Model/Layout.php(205): Mage_Core_Model_Layout->_generateBlock(Object(Mage_Core_Model_Layout_Element), Object(Mage_Core_Model_Layout_Element))
+#5 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Controller/Varien/Action.php(344): Mage_Core_Model_Layout->generateBlocks()
+#6 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Controller/Varien/Action.php(269): Mage_Core_Controller_Varien_Action->generateLayoutBlocks()
+#7 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Customer/controllers/AccountController.php(917): Mage_Core_Controller_Varien_Action->loadLayout()
+#8 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Controller/Varien/Action.php(418): Mage_Customer_AccountController->editAction()
+#9 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Controller/Varien/Router/Standard.php(254): Mage_Core_Controller_Varien_Action->dispatch('edit')
+#10 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Controller/Varien/Front.php(172): Mage_Core_Controller_Varien_Router_Standard->match(Object(Mage_Core_Controller_Request_Http))
+#11 /home/web/crowdfunding/version9/mage_crowdfunding/app/code/core/Mage/Core/Model/App.php(365): Mage_Core_Controller_Varien_Front->dispatch()
+#12 /home/web/crowdfunding/version9/mage_crowdfunding/app/Mage.php(684): Mage_Core_Model_App->run(Array)
+#13 /home/web/crowdfunding/version9/mage_crowdfunding/index.php(83): Mage::run('', 'store')
+#14 {main}

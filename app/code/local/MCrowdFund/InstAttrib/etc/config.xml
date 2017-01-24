@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config>
         <modules>
-            <SMage_InstAttrib>
+            <MCrowdFund_InstAttrib>
                 <version>0.0.1</version>
-            </SMage_InstAttrib>
+            </MCrowdFund_InstAttrib>
         </modules>
         <global>       
             <resources>
                 <instattrib_setup>
                     <setup>
-                        <module>SMage_InstAttrib</module>
+                        <module>MCrowdFund_InstAttrib</module>
                         <class>Mage_Catalog_Model_Resource_Setup</class>
                     </setup>
                 </instattrib_setup>

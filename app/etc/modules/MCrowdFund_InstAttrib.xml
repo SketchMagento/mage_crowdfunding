@@ -27,9 +27,9 @@
 -->
 <config>
     <modules>
-        <SMage_InstAttrib>
+        <MCrowdFund_InstAttrib>
             <active>true</active>
             <codePool>local</codePool>
-        </SMage_InstAttrib>
+        </MCrowdFund_InstAttrib>
     </modules>
 </config>

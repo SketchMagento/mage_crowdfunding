@@ -50,11 +50,11 @@
 <div class="currency-switcher">
     <label for="select-currency">Your Currency:</label>
     <select id="select-currency" name="currency" title="Your Currency" onchange="setLocation(this.value)">
-                <option value="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/directory/currency/switch/currency/EUR/uenc/aHR0cDovL2xvY2FsaG9zdC9od2ViL2Nyb3dkZnVuZGluZy92ZXJzaW9uOS9tYWdlX2Nyb3dkZnVuZGluZy9pbmRleC5waHAvc3VwcGxpZXJmcm9udGVuZHByb2R1Y3R1cGxvYWRlci8,/?___SID=U">
+                <option value="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/directory/currency/switch/currency/EUR/uenc/aHR0cDovL2xvY2FsaG9zdC9od2ViL2Nyb3dkZnVuZGluZy92ZXJzaW9uOS9tYWdlX2Nyb3dkZnVuZGluZy9pbmRleC5waHAv/?___SID=U">
             Euro - EUR        </option>
-            <option value="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/directory/currency/switch/currency/INR/uenc/aHR0cDovL2xvY2FsaG9zdC9od2ViL2Nyb3dkZnVuZGluZy92ZXJzaW9uOS9tYWdlX2Nyb3dkZnVuZGluZy9pbmRleC5waHAvc3VwcGxpZXJmcm9udGVuZHByb2R1Y3R1cGxvYWRlci8,/?___SID=U" selected="selected">
+            <option value="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/directory/currency/switch/currency/INR/uenc/aHR0cDovL2xvY2FsaG9zdC9od2ViL2Nyb3dkZnVuZGluZy92ZXJzaW9uOS9tYWdlX2Nyb3dkZnVuZGluZy9pbmRleC5waHAv/?___SID=U" selected="selected">
             Indian Rupee - INR        </option>
-            <option value="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/directory/currency/switch/currency/USD/uenc/aHR0cDovL2xvY2FsaG9zdC9od2ViL2Nyb3dkZnVuZGluZy92ZXJzaW9uOS9tYWdlX2Nyb3dkZnVuZGluZy9pbmRleC5waHAvc3VwcGxpZXJmcm9udGVuZHByb2R1Y3R1cGxvYWRlci8,/?___SID=U">
+            <option value="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/index.php/directory/currency/switch/currency/USD/uenc/aHR0cDovL2xvY2FsaG9zdC9od2ViL2Nyb3dkZnVuZGluZy92ZXJzaW9uOS9tYWdlX2Nyb3dkZnVuZGluZy9pbmRleC5waHAv/?___SID=U">
             US Dollar - USD        </option>
         </select>
 </div>
@@ -266,6 +266,50 @@
 </section>
 
 <script src="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/skin/frontend/rwd/realestate/js/vendor/bootstrap.min.js"></script>
+
+<script src="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/js/prototype/window.js"></script>
+<script type="text/javascript">// <![CDATA[
+function showLocation(url) {
+    winCompare = new Window({id:'popup_win',className:'magento',title:'Enter The Following:',url:url,opacity:1,
+width:800,height:400,minimizable:false,maximizable:false,showEffectOptions:{duration:0.4},hideEffectOptions:{duration:0.4},
+closable:true,destroyOnClose:true,recenterAuto:false});
+    winCompare.setZIndex(100);
+    winCompare.showCenter(true);
+}
+function closePopup() {
+    Windows.close('popup_win');
+}
+// ]]></script>
+
+<script>
+$j(window).load(function(){
+   $j('.footer-btn').trigger('click');
+   
+   $j('#popup_win .title_window').css('background-color','#ECECEC');
+   $j('#popup_win .title_window').css('font-weight','700');
+   $j('#popup_win .magento_close').text('X');
+   $j('#popup_win .magento_close').css('color','#000000');
+   $j('#popup_win .magento_close').css('cursor','pointer');
+   $j('#popup_win .magento_close').css('position','absolute');
+   $j('#popup_win .magento_close').css('font-weight','bold');
+   $j('#popup_win .magento_close').css('margin-left','780px');
+   $j('#popup_win .magento_close').css('width','28px');	
+   $j('#popup_win').find('#popup_win_content').load(function(){
+       
+	$j(this).contents().find('.top-section').css('display','none');
+ 	$j(this).contents().find('.top-middle').css('display','none');
+	$j(this).contents().find('.menu-part').css('display','none');
+	$j(this).contents().find('.breadcrumbs').css('display','none');
+	$j(this).contents().find('.main-container').css('padding','0');
+	$j(this).contents().find('#secure-pay').css('display','none');
+	$j(this).contents().find('#footer-upper').css('display','none');
+	$j(this).contents().find('#follow-us').css('display','none');
+	$j(this).contents().find('footer').css('display','none');
+	$j(this).contents().find('#copy').css('display','none');
+        $j(this).contents().find('#preloader').hide();
+   });
+});
+</script>
 
 <!--<script src="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/skin/frontend/rwd/realestate/js/vendor/jquery.flexslider-min.js" type="text/javascript"></script>-->
 <!--<script src="http://localhost/hweb/crowdfunding/version9/mage_crowdfunding/skin/frontend/rwd/realestate/js/main.js"></script>--> <!--your custom js -->
